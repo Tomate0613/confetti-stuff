@@ -1,0 +1,6 @@
+{
+  "parent": "confetti_stuff:block/layer",
+  "textures": {
+    "wool": "confetti_stuff:block/confetti_layer_2"
+  }
+}

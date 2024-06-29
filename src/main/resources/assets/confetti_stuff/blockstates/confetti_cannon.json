@@ -1,0 +1,20 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "confetti_stuff:block/confetti_cannon",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "confetti_stuff:block/confetti_cannon"
+    },
+    "facing=south": {
+      "model": "confetti_stuff:block/confetti_cannon",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "confetti_stuff:block/confetti_cannon",
+      "y": 270
+    }
+  }
+}
+

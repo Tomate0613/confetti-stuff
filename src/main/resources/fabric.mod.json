@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "id": "confetti-stuff",
+  "version": "${version}",
+  "name": "Confetti Stuff",
+  "description": "Adds silly confetti related items and blocks",
+  "authors": [],
+  "contact": {
+    "repo": "https://github.com/Tomate0613/confetti-stuff"
+  },
+  "license": "MIT",
+  "icon": "assets/confetti_stuff/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "client": [
+      "dev.doublekekse.confetti_stuff.client.ConfettiStuffClient"
+    ],
+    "main": [
+      "dev.doublekekse.confetti_stuff.ConfettiStuff"
+    ]
+  },
+  "mixins": [
+    "confetti_stuff.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric": "*",
+    "minecraft": "${minecraft_version}"
+  }
+}

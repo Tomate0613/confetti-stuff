@@ -1,0 +1,11 @@
+{
+  "subtitles.block.confetti_cannon.cannon_fires": "Confetti Cannon fires",
+  "subtitles.item.popper.popper_pops": "Popper pops",
+  "subtitles.item.broom.sweeping": "Sweeping",
+
+  "item.confetti_stuff.party_popper": "Party Popper",
+  "item.confetti_stuff.broom": "Broom",
+  "block.confetti_stuff.confetti_cannon": "Confetti Cannon",
+  "block.confetti_stuff.confetti_layer": "Confetti Layer",
+  "itemGroup.confetti_stuff.stuff": "Confetti Stuff"
+}

@@ -1,0 +1,6 @@
+{
+  "parent": "confetti_stuff:block/layer_large",
+  "textures": {
+    "wool": "confetti_stuff:block/confetti_layer_4"
+  }
+}

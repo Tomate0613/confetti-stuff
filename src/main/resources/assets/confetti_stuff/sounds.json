@@ -1,0 +1,50 @@
+{
+  "block.confetti_cannon.cannon_fires": {
+    "sounds": [
+      "item/mace/smash_ground1",
+      "item/mace/smash_ground2",
+      "item/mace/smash_ground3",
+      "item/mace/smash_ground4"
+    ],
+    "subtitle": "subtitles.block.confetti_cannon.cannon_fires"
+  },
+  "item.popper.popper_pops": {
+    "sounds": [
+      {
+        "name": "mob/goat/horn_break1",
+        "volume": 0.9
+      },
+      {
+        "name": "mob/goat/horn_break2",
+        "volume": 0.9
+      },
+      {
+        "name": "mob/goat/horn_break3",
+        "volume": 0.9
+      },
+      {
+        "name": "mob/goat/horn_break4",
+        "volume": 0.9
+      }
+    ],
+    "subtitle": "subtitles.item.popper.popper_pops"
+  },
+  "item.broom.sweeping": {
+    "sounds": [
+      {
+        "name": "confetti_stuff:sweeping_01"
+      },
+      {
+        "name": "confetti_stuff:sweeping_02"
+      },
+      {
+        "name": "confetti_stuff:sweeping_03"
+      },
+      {
+        "name": "confetti_stuff:sweeping_04"
+      }
+    ],
+    "subtitle": "subtitles.item.broom.sweeping"
+  }
+}
+
