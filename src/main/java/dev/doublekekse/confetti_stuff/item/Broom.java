@@ -1,6 +1,7 @@
 package dev.doublekekse.confetti_stuff.item;
 
 import dev.doublekekse.confetti_stuff.ConfettiStuff;
+import dev.doublekekse.confetti_stuff.compat.dusty.DustCompatibility;
 import dev.doublekekse.confetti_stuff.packet.BroomKickEntityPacket;
 import dev.doublekekse.confetti_stuff.registry.SoundEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
@@ -73,6 +74,8 @@ public class Broom extends Item {
             if (level.isClientSide) {
                 spawnDustParticles(level, blockHitResult, blockState, speedSqr);
             }
+
+            DustCompatibility.onSweep(level, blockPos);
         } else if (hitResult instanceof EntityHitResult entityHitResult && !cooldowns.isOnCooldown(this) && level.isClientSide) {
             var entity = entityHitResult.getEntity();
             Vec3 viewVector = player.getViewVector(0.0f);
