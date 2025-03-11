@@ -5,6 +5,7 @@ import dev.doublekekse.confetti_stuff.compat.dusty.DustCompatibility;
 import dev.doublekekse.confetti_stuff.packet.BroomKickEntityPacket;
 import dev.doublekekse.confetti_stuff.registry.SoundEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerPlayer;
@@ -75,7 +76,9 @@ public class Broom extends Item {
                 spawnDustParticles(level, blockHitResult, blockState, speedSqr);
             }
 
-            DustCompatibility.onSweep(level, blockPos);
+            if(FabricLoader.getInstance().isModLoaded("dust")) {
+                DustCompatibility.onSweep(level, blockPos);
+            }
         } else if (hitResult instanceof EntityHitResult entityHitResult && !cooldowns.isOnCooldown(this) && level.isClientSide) {
             var entity = entityHitResult.getEntity();
             Vec3 viewVector = player.getViewVector(0.0f);
