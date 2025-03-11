@@ -6,6 +6,7 @@ import dev.doublekekse.confetti_stuff.packet.BroomKickEntityPacket;
 import dev.doublekekse.confetti_stuff.registry.SoundEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.loader.api.FabricLoader;
+import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerPlayer;
@@ -22,11 +23,15 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.*;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Predicate;
 
 public class Broom extends Item {
     public static final double BROOM_INTERACTION_DISTANCE_FACTOR = 1.7;
+    private @Nullable Vec3 previousUsePos;
+    public Vec3 viewDelta;
 
     public Broom(Properties properties) {
         super(properties);
@@ -41,18 +46,28 @@ public class Broom extends Item {
     }
 
     @Override
+    public void releaseUsing(ItemStack itemStack, Level level, LivingEntity livingEntity, int i) {
+        previousUsePos = null;
+        super.releaseUsing(itemStack, level, livingEntity, i);
+    }
+
+    @Override
+    public @NotNull ItemStack finishUsingItem(ItemStack itemStack, Level level, LivingEntity livingEntity) {
+        previousUsePos = null;
+        return super.finishUsingItem(itemStack, level, livingEntity);
+    }
+
+    @Override
     public void onUseTick(Level level, LivingEntity livingEntity, ItemStack itemStack, int i) {
         if (!(livingEntity instanceof Player player)) {
             return;
         }
 
+        HitResult hitResult = calculateHitResult(player);
+
         var random = level.getRandom();
         var cooldowns = player.getCooldowns();
-        var movement = player.getDeltaMovement();
-        var horizontalMovement = new Vec3(movement.x, 0, movement.z);
-        var speedSqr = horizontalMovement.lengthSqr();
-
-        HitResult hitResult = calculateHitResult(player);
+        var speedSqr = getSpeedSqr(player, hitResult);
 
         BLOCK:
         if (hitResult instanceof BlockHitResult blockHitResult) {
@@ -76,7 +91,7 @@ public class Broom extends Item {
                 spawnDustParticles(level, blockHitResult, blockState, speedSqr);
             }
 
-            if(FabricLoader.getInstance().isModLoaded("dust")) {
+            if (FabricLoader.getInstance().isModLoaded("dust")) {
                 DustCompatibility.onSweep(level, blockPos);
             }
         } else if (hitResult instanceof EntityHitResult entityHitResult && !cooldowns.isOnCooldown(this) && level.isClientSide) {
@@ -94,6 +109,18 @@ public class Broom extends Item {
 
             cooldowns.addCooldown(this, 15);
         }
+    }
+
+    private double getSpeedSqr(Player player, HitResult hitResult) {
+        if (player instanceof LocalPlayer) {
+            var pos = hitResult.getLocation();
+            viewDelta = previousUsePos == null ? Vec3.ZERO : pos.subtract(previousUsePos);
+            previousUsePos = pos;
+
+            return viewDelta.horizontalDistanceSqr();
+        }
+
+        return player.getDeltaMovement().horizontalDistanceSqr();
     }
 
     private void kickEntity(Entity entity, Vec3 velocity) {
