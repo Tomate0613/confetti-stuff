@@ -6,7 +6,7 @@
   "elements": [
     {
       "from": [ -8, 0, -8 ],
-      "to": [ 24, 0.1, 24 ],
+      "to": [ 24, 0.11, 24 ],
       "faces": {
         "down":  { "uv": [ 0,  0, 16, 16 ], "texture": "#wool", "cullface": "down" },
         "up":    { "uv": [ 0,  0, 16, 16 ], "texture": "#wool" }
