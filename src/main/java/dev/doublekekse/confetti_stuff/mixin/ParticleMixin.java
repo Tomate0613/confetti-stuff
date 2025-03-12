@@ -7,10 +7,8 @@ import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.TextureSheetParticle;
 import net.minecraft.core.Direction;
 import net.minecraft.world.phys.Vec3;
-import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -27,8 +25,9 @@ public abstract class ParticleMixin extends TextureSheetParticle {
     @Inject(method = "collisions", at = @At(value = "INVOKE", target = "Ldev/doublekekse/confetti/particle/ConfettiParticle$ConfettiPieceParticle;collision(DDDDDLnet/minecraft/world/phys/Vec3;)V", ordinal = 0))
     void tick(CallbackInfo ci) {
         var player = Minecraft.getInstance().player;
+        assert player != null;
 
-        if (player == null || !player.getUseItem().is(ConfettiStuff.BROOM)) {
+        if (!player.getUseItem().is(ConfettiStuff.BROOM)) {
             return;
         }
 
@@ -45,9 +44,9 @@ public abstract class ParticleMixin extends TextureSheetParticle {
             delta = delta.normalize().scale(.5);
         }
 
-        double dX = pos.x - this.x;
-        double dY = pos.y - this.y;
-        double dZ = pos.z - this.z;
+        double dX = x - pos.x;
+        double dY = y - pos.y;
+        double dZ = z - pos.z;
 
         collision(dX, dY, dZ, 1, 0.1, delta.scale(.6));
     }
