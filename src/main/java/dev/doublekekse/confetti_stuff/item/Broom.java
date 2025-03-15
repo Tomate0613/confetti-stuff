@@ -6,7 +6,6 @@ import dev.doublekekse.confetti_stuff.packet.BroomKickEntityPacket;
 import dev.doublekekse.confetti_stuff.registry.SoundEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerPlayer;
@@ -38,7 +37,7 @@ public class Broom extends Item {
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand interactionHand) {
+    public @NotNull InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand interactionHand) {
         ItemStack itemStack = player.getItemInHand(interactionHand);
 
         player.startUsingItem(interactionHand);
@@ -112,7 +111,7 @@ public class Broom extends Item {
     }
 
     private double getSpeedSqr(Player player, HitResult hitResult) {
-        if (player instanceof LocalPlayer) {
+        if (player.isLocalPlayer()) {
             var pos = hitResult.getLocation();
             viewDelta = previousUsePos == null ? Vec3.ZERO : pos.subtract(previousUsePos);
             previousUsePos = pos;
