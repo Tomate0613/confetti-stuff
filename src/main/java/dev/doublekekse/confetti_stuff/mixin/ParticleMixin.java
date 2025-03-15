@@ -33,7 +33,7 @@ public abstract class ParticleMixin extends TextureSheetParticle {
 
         var hitResult = Minecraft.getInstance().hitResult;
 
-        if (hitResult == null) {
+        if (hitResult == null || ConfettiStuff.BROOM.viewDelta == null) {
             return;
         }
 
