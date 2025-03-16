@@ -37,6 +37,11 @@ public class Broom extends Item {
     }
 
     @Override
+    public int getUseDuration(ItemStack itemStack, LivingEntity livingEntity) {
+        return Integer.MAX_VALUE;
+    }
+
+    @Override
     public @NotNull InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand interactionHand) {
         ItemStack itemStack = player.getItemInHand(interactionHand);
 
