@@ -38,4 +38,7 @@ jobs:
             - confetti-lib
             - fabric-api
 
+          game-versions: |
+            [1.21, 1.21.1]
+
           version-type: release
